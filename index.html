@@ -14,10 +14,14 @@ html,body{margin:0;min-height:100%;background:#eef0f3;font-family:-apple-system,
 <script>
 (async()=>{
   try{
-    const files=Array.from({length:15},(_,i)=>`payload/part-${String(i+1).padStart(2,'0')}.txt`);
+    const files=[
+      'p-01-fixed.txt','p-02.txt','p-03.txt','p-04-05.txt','p-06-07.txt','p-08-09.txt',
+      'p-10-11.txt','p-12-13.txt','p-14-15.txt','p-16-17.txt','p-18-19.txt',
+      'p-20-21.txt','p-22-23.txt','p-24-25.txt','p-26.txt'
+    ];
     const parts=await Promise.all(files.map(async f=>{
-      const r=await fetch(f+'?v=20260908-2',{cache:'no-store'});
-      if(!r.ok) throw new Error(`${f} — HTTP ${r.status}`);
+      const r=await fetch(f+'?v=20260908-3',{cache:'no-store'});
+      if(!r.ok) throw new Error(f+' — HTTP '+r.status);
       return r.text();
     }));
     const b64=parts.join('').replace(/\s/g,'');
