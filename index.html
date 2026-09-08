@@ -4,97 +4,41 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>App PH-HS — Dschool</title>
-<link rel="stylesheet" href="style.css">
+<style>
+html,body{margin:0;min-height:100%;background:#eef0f3;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.loading{min-height:100vh;display:grid;place-items:center;color:#475569}.box{text-align:center;font-size:14px}.spin{width:30px;height:30px;border:3px solid #cbd5e1;border-top-color:#2563eb;border-radius:50%;margin:0 auto 12px;animation:s .8s linear infinite}@keyframes s{to{transform:rotate(360deg)}}
+</style>
 </head>
 <body>
-<!-- ══════════════════════════════════════════════════════════════════
-     App PH-HS · vỏ demo — body.00-vo.html
-     Đây là TOÀN BỘ markup tĩnh của App. Mọi thứ khác do JS dựng.
-     Tệp T* KHÔNG thêm markup vào đây; chúng chỉ trả chuỗi HTML từ renderT<n>().
-     ══════════════════════════════════════════════════════════════════ -->
-
-<!-- Thanh HỒ SƠ DEMO — thay cho thanh đổi vai của demo Web.
-     App không có vai nào; hồ sơ đầu là "Đủ tình huống" và đặt mặc định. -->
-<div class="tho">
-  <div class="nhan">Hồ sơ demo · chọn tình huống để rà</div>
-  <div class="hang" id="tho-hang"></div>
-  <div class="gt" id="tho-gt"></div>
-  <!-- G56 — lối vào màn Đăng nhập. 🛑 Demo KHÔNG khởi động vào màn đăng
-       nhập: CLAUDE.md chốt "demo dựng theo vai toàn quyền, mọi chức năng
-       thao tác được", và đã nhiều lần người duyệt báo "không thấy chức
-       năng" chỉ vì màn đầu chặn. Đăng nhập là MỘT màn hình phải rà được,
-       không phải một cánh cổng đặt trước mặt người rà. -->
-  <div class="hang">
-    <button id="tho-dnhap">🔐 Mở màn Đăng nhập</button>
-  </div>
-</div>
-
-<div class="trang">
-  <div class="may">
-
-    <!-- Header — KHÔNG có tên trường cố định: tên trường đi theo con đang chọn -->
-    <header class="hd">
-      <button class="chon-con" id="btn-con" aria-haspopup="dialog">
-        <span class="anh" id="con-anh"></span>
-        <span class="tx">
-          <span class="t1" id="con-t1"></span>
-          <span class="t2" id="con-t2"></span>
-        </span>
-      </button>
-      <!-- G54 — 🔔 ở lại MỌI tab (đèn báo, không thuộc trục con/phụ huynh).
-           Nút avatar riêng bỏ đi: ở tab gom, chính khối danh tính bên trái
-           LÀ đường vào Tài khoản; ở tab theo con thì không có đường đó. -->
-      <button class="ic" id="btn-chuong" title="Thông báo">🔔</button>
-    </header>
-
-    <!-- G60 — DẢI HỒ SƠ NĂM HỌC. Hàng RIÊNG dưới header, không đứng cạnh
-         bộ chọn con: hai công tắc cạnh nhau là đúng cái G40 đã chặn.
-         Chỉ hiện ở tab THEO NĂM (Học tập · Ở trường) — xem veHeaderNam(). -->
-    <div class="hd-nam" id="hd-nam" hidden></div>
-
-    <!-- SÁU sub-tab của T2 (G46 sửa G36) — chỉ hiện khi đang ở tab 👤.
-         🛑 HẾT CHỖ: ô thứ bảy phải bỏ nhãn chữ, mà G21 chốt nhãn chữ là
-         điều kiện để mục cuối tìm được. Xem _khung-giao-dien-app §7. -->
-    <nav class="subbar" id="subbar" hidden>
-    </nav>
-
-    <main class="than" id="than">
-      <section id="tab-T1"></section>
-      <section id="tab-T2"></section>
-      <section id="tab-T3"></section>
-      <section id="tab-T4"></section>
-      <section id="tab-T6"></section>
-    </main>
-
-    <!-- NĂM tab (G53 sửa G36). T5 Tài khoản mở từ 👤 trên header, không phải tab.
-         Thứ tự: gom · theo con · theo con · theo con · gom.
-         Đo: 5 ô × 78px, nhãn dài nhất "Trang chủ" 49px — dư 29px. -->
-    <nav class="tabbar" id="tabbar">
-      <button data-t="T1"><span class="bt">🏠</span>Trang chủ</button>
-      <button data-t="T2"><span class="bt">📚</span>Học tập</button>
-      <button data-t="T6"><span class="bt">🏫</span>Ở trường</button>
-      <button data-t="T3"><span class="bt">💰</span>Tài chính</button>
-      <button data-t="T4"><span class="bt">💬</span>Nhắn tin</button>
-    </nav>
-
-    <!-- G56 — MÀN NGOÀI VỎ: đăng nhập · quên mật khẩu · kích hoạt.
-         Nó phủ kín `.may` và ẩn cả header, sub-bar, thân, tab bar —
-         bốn thứ đó nói về "bạn đang xem của ai", mà lúc chưa đăng nhập
-         thì chưa có ai để nói. -->
-    <section id="man-t0" hidden></section>
-
-    <!-- Ngăn xếp lớp phủ: sheet · màn hình chồng · toast -->
-    <div id="lop"></div>
-  </div>
-</div>
-
-<script src="app-01.js"></script>
-<script src="app-02.js"></script>
-<script src="app-03.js"></script>
-<script src="app-04.js"></script>
-<script src="app-05.js"></script>
-<script src="app-06.js"></script>
-<script src="app-07.js"></script>
-<script src="app-08.js"></script>
+<div class="loading"><div class="box"><div class="spin"></div>Đang tải demo…</div></div>
+<script>
+(async()=>{
+  try{
+    const files=[
+      'p-01-fixed.txt','p-02.txt','p-03.txt','p-04-05.txt','p-06-07.txt','p-08-09.txt',
+      'p-10-11.txt','p-12-13.txt','p-14-15.txt','p-16-17.txt','p-18-19.txt',
+      'p-20-21.txt','p-22-23.txt','p-24-25.txt','p-26.txt'
+    ];
+    const parts=await Promise.all(files.map(async f=>{
+      const r=await fetch(f+'?v=20260908-1',{cache:'no-store'});
+      if(!r.ok) throw new Error(f+' — HTTP '+r.status);
+      return r.text();
+    }));
+    const b64=parts.join('').replace(/\s/g,'');
+    const bin=atob(b64);
+    const bytes=new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+    if(typeof DecompressionStream==='undefined') throw new Error('Trình duyệt không hỗ trợ DecompressionStream');
+    const ds=new DecompressionStream('gzip');
+    const html=await new Response(new Blob([bytes]).stream().pipeThrough(ds)).text();
+    document.open();
+    document.write(html);
+    document.close();
+  }catch(e){
+    console.error(e);
+    document.body.innerHTML='<pre style="padding:24px;color:#b91c1c;white-space:pre-wrap;font:14px/1.5 monospace">Không tải được demo: '+String(e)+'</pre>';
+  }
+})();
+</script>
 </body>
 </html>
