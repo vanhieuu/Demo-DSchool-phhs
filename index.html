@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>App PH-HS — Dschool</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- ══════════════════════════════════════════════════════════════════
+     App PH-HS · vỏ demo — body.00-vo.html
+     Đây là TOÀN BỘ markup tĩnh của App. Mọi thứ khác do JS dựng.
+     Tệp T* KHÔNG thêm markup vào đây; chúng chỉ trả chuỗi HTML từ renderT<n>().
+     ══════════════════════════════════════════════════════════════════ -->
+
+<!-- Thanh HỒ SƠ DEMO — thay cho thanh đổi vai của demo Web.
+     App không có vai nào; hồ sơ đầu là "Đủ tình huống" và đặt mặc định. -->
+<div class="tho">
+  <div class="nhan">Hồ sơ demo · chọn tình huống để rà</div>
+  <div class="hang" id="tho-hang"></div>
+  <div class="gt" id="tho-gt"></div>
+  <!-- G56 — lối vào màn Đăng nhập. 🛑 Demo KHÔNG khởi động vào màn đăng
+       nhập: CLAUDE.md chốt "demo dựng theo vai toàn quyền, mọi chức năng
+       thao tác được", và đã nhiều lần người duyệt báo "không thấy chức
+       năng" chỉ vì màn đầu chặn. Đăng nhập là MỘT màn hình phải rà được,
+       không phải một cánh cổng đặt trước mặt người rà. -->
+  <div class="hang">
+    <button id="tho-dnhap">🔐 Mở màn Đăng nhập</button>
+  </div>
+</div>
+
+<div class="trang">
+  <div class="may">
+
+    <!-- Header — KHÔNG có tên trường cố định: tên trường đi theo con đang chọn -->
+    <header class="hd">
+      <button class="chon-con" id="btn-con" aria-haspopup="dialog">
+        <span class="anh" id="con-anh"></span>
+        <span class="tx">
+          <span class="t1" id="con-t1"></span>
+          <span class="t2" id="con-t2"></span>
+        </span>
+      </button>
+      <!-- G54 — 🔔 ở lại MỌI tab (đèn báo, không thuộc trục con/phụ huynh).
+           Nút avatar riêng bỏ đi: ở tab gom, chính khối danh tính bên trái
+           LÀ đường vào Tài khoản; ở tab theo con thì không có đường đó. -->
+      <button class="ic" id="btn-chuong" title="Thông báo">🔔</button>
+    </header>
+
+    <!-- G60 — DẢI HỒ SƠ NĂM HỌC. Hàng RIÊNG dưới header, không đứng cạnh
+         bộ chọn con: hai công tắc cạnh nhau là đúng cái G40 đã chặn.
+         Chỉ hiện ở tab THEO NĂM (Học tập · Ở trường) — xem veHeaderNam(). -->
+    <div class="hd-nam" id="hd-nam" hidden></div>
+
+    <!-- SÁU sub-tab của T2 (G46 sửa G36) — chỉ hiện khi đang ở tab 👤.
+         🛑 HẾT CHỖ: ô thứ bảy phải bỏ nhãn chữ, mà G21 chốt nhãn chữ là
+         điều kiện để mục cuối tìm được. Xem _khung-giao-dien-app §7. -->
+    <nav class="subbar" id="subbar" hidden>
+    </nav>
+
+    <main class="than" id="than">
+      <section id="tab-T1"></section>
+      <section id="tab-T2"></section>
+      <section id="tab-T3"></section>
+      <section id="tab-T4"></section>
+      <section id="tab-T6"></section>
+    </main>
+
+    <!-- NĂM tab (G53 sửa G36). T5 Tài khoản mở từ 👤 trên header, không phải tab.
+         Thứ tự: gom · theo con · theo con · theo con · gom.
+         Đo: 5 ô × 78px, nhãn dài nhất "Trang chủ" 49px — dư 29px. -->
+    <nav class="tabbar" id="tabbar">
+      <button data-t="T1"><span class="bt">🏠</span>Trang chủ</button>
+      <button data-t="T2"><span class="bt">📚</span>Học tập</button>
+      <button data-t="T6"><span class="bt">🏫</span>Ở trường</button>
+      <button data-t="T3"><span class="bt">💰</span>Tài chính</button>
+      <button data-t="T4"><span class="bt">💬</span>Nhắn tin</button>
+    </nav>
+
+    <!-- G56 — MÀN NGOÀI VỎ: đăng nhập · quên mật khẩu · kích hoạt.
+         Nó phủ kín `.may` và ẩn cả header, sub-bar, thân, tab bar —
+         bốn thứ đó nói về "bạn đang xem của ai", mà lúc chưa đăng nhập
+         thì chưa có ai để nói. -->
+    <section id="man-t0" hidden></section>
+
+    <!-- Ngăn xếp lớp phủ: sheet · màn hình chồng · toast -->
+    <div id="lop"></div>
+  </div>
+</div>
+
+<script src="app-01.js"></script>
+<script src="app-02.js"></script>
+<script src="app-03.js"></script>
+<script src="app-04.js"></script>
+<script src="app-05.js"></script>
+<script src="app-06.js"></script>
+<script src="app-07.js"></script>
+<script src="app-08.js"></script>
+</body>
+</html>
